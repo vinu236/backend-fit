@@ -309,6 +309,7 @@ exports.patchBooking = async (req, res, next) => {
     const { trainer_id } = req.body;
 
     console.log(id);
+    console.log("heyt")
     console.log(trainer_id)
     const updateTrainer = await Booking.findByIdAndUpdate(id, { $set: { trainer: trainer_id } },{ new: true });
     console.log(updateTrainer);
@@ -318,16 +319,10 @@ exports.patchBooking = async (req, res, next) => {
       return next(err);
     }
 
-    //TODO: MAKE IT DYNAMIC SENDER ID AND RECEIVER ID
-    // const conversationAdd = await Conversation.create({
-    //   members: ["641fab04bfbcc902a424ba87", "640b1648a026378f1eab8858"]
-    // });
-
-    // const conversationAdd = await Conversation.create({
-    //   members: ["641fab04bfbcc902a424ba87", "640b1648a026378f1eab8858"]
-    // });
-
-    
+    // //TODO: MAKE IT DYNAMIC SENDER ID AND RECEIVER ID
+    const conversationAdd = await Conversation.create({
+      members: [id, trainer_id]
+    });
 
 
     res.status(201).json({
